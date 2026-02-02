@@ -19,9 +19,6 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-install-project --no-dev
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv run src/generate_models.py
-
-RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev
 
 FROM python:3.10-slim-bookworm
