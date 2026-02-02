@@ -67,10 +67,55 @@ class PaddleOCRService:
             
             # Use ocr_models for English and Arabic, local_models for others
             if lang == "en":
-                rec_model_dir = "./src/ocr_models/en"
+                rec_model_dir = "./src/ocr_models/en_PP-OCRv5_mobile_rec"
                 det_model_dir = f"{self.models_base}/{self.det_model}"
             elif lang == "ar":
-                rec_model_dir = "./src/ocr_models/arabic"
+                rec_model_dir = "./src/ocr_models/arabic_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "fa":
+                rec_model_dir = "./src/ocr_models/arabic_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "ur":
+                rec_model_dir = "./src/ocr_models/arabic_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "fr":
+                rec_model_dir = "./src/ocr_models/latin_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "de":
+                rec_model_dir = "./src/ocr_models/latin_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "es":
+                rec_model_dir = "./src/ocr_models/latin_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "pt":
+                rec_model_dir = "./src/ocr_models/latin_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "id":
+                rec_model_dir = "./src/ocr_models/latin_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "vi":
+                rec_model_dir = "./src/ocr_models/latin_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "hi":
+                rec_model_dir = "./src/ocr_models/devanagari_PP-OCRv3_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "ja":
+                rec_model_dir = "./src/ocr_models/japan_PP-OCRv3_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "ko":
+                rec_model_dir = "./src/ocr_models/korean_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "zh":
+                rec_model_dir = "./src/ocr_models/PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "ru":
+                rec_model_dir = "./src/ocr_models/cyrillic_PP-OCRv3_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "so":
+                rec_model_dir = "./src/ocr_models/en_PP-OCRv5_mobile_rec"
+                det_model_dir = f"{self.models_base}/{self.det_model}"
+            elif lang == "tl":
+                rec_model_dir = "./src/ocr_models/en_PP-OCRv5_mobile_rec"
                 det_model_dir = f"{self.models_base}/{self.det_model}"
             else:
                 rec_model = self.model_registry.get(lang, "en_PP-OCRv5_mobile_rec")
