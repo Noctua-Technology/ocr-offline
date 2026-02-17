@@ -12,17 +12,12 @@ async def root():
 
 @app.get("/health")
 def health_check():
-    try:
-        if not ocr_service.models:
-             ocr_service._get_or_load_model("en")
-        
-        return {
-            "status": "ready",
-            "models_loaded": list(ocr_service.models.keys()),
-            "message": "OCR engine is ready"
-        }
-    except Exception as e:
-        raise HTTPException(status_code=503, detail=f"OCR not ready: {str(e)}")
+    return {
+        "status": "ready",
+        "models_loaded": list(ocr_service.models.keys()),
+        "message": "OCR engine is ready"
+    }
+    
 
 @app.post("/ocr/predict")
 async def predict_text(
@@ -45,4 +40,6 @@ async def predict_text(
         return ocr_service.run_ocr(file_bytes, content_type=content_type, lang=lang)
 
     except Exception as e:
+        print(f"OCR Error: {repr(e)}")
+        
         raise HTTPException(status_code=500, detail=f"OCR Error: {str(e)}")

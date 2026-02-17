@@ -6,14 +6,14 @@ from io import BytesIO
 from paddleocr import PaddleOCR
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODELS_ROOT = os.path.join(BASE_DIR, "local_models")
+MODELS_ROOT = os.path.join(BASE_DIR, "ocr_models")
 
 class PaddleOCRService:
     def __init__(self):
         self.models = {}
 
         # Base path for models (configurable via env var for Cloud Run)
-        self.models_base = os.environ.get("MODELS_BASE", "./src/local_models")
+        self.models_base = os.environ.get("MODELS_BASE", "./src/ocr_models")
 
         # Detection model (shared across languages)
         self.det_model = "PP-OCRv5_server_det"
