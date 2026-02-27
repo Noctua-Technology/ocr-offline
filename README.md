@@ -17,8 +17,7 @@ Small FastAPI wrapper around `PaddleOCRVL` with two runtime modes:
 This repo uses `vllm/` as a git submodule. Include it when cloning.
 
 ```bash
-git clone --recurse-submodules https://github.com/<your-org>/paddle-vllm.git
-cd paddle-vllm
+git clone --recurse-submodules git@github.com:Noctua-Technology/paddle-ocr-offline.git
 ```
 
 If you already cloned without submodules:
