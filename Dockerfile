@@ -1,3 +1,5 @@
+ARG HF_TOKEN;
+
 FROM python:3.12-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -22,7 +24,7 @@ COPY pyproject.toml uv.lock ./
 RUN python -m uv venv
 
 RUN uv sync
-RUN ./scripts/download_models.sh
+RUN ./scripts/download_models.sh $HF_TOKEN
 
 RUN cd vllm \
     uv pip install -r requirements/cpu.txt --index-strategy unsafe-best-match \
