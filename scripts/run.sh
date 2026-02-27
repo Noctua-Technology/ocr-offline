@@ -36,4 +36,4 @@ else
     log "Mode: local OCR backend only (USE_VLLM=0)"
 fi
 
-.venv/bin/fastapi run src/main.py --port 8001
+.venv/bin/fastapi run src/main.py --port 3333
