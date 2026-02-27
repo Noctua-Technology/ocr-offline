@@ -60,7 +60,7 @@ Start API with vLLM worker + API:
 
 Ports:
 
-- API: `http://localhost:8001`
+- API: `http://localhost:3333`
 - vLLM (only with `--vllm`): `http://localhost:8000`
 
 ## API
