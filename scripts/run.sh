@@ -7,7 +7,6 @@ log() {
 }
 
 export PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True
-log "PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=true"
 
 use_vllm=0
 vllm_server_url="http://localhost:8000/v1"
