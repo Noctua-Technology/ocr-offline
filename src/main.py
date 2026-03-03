@@ -93,11 +93,13 @@ async def predict(file: UploadFile = File(...)):
 
         for idx, res in enumerate(output):
             json_path = tmp_path / f"output_{idx}.json"
-            markdown_path = tmp_path / f"output_{idx}.md"
             
             res.save_to_json(save_path=str(json_path))
-            res.save_to_markdown(save_path=str(markdown_path))
 
-            results.append(json.loads(json_path.read_text(encoding="utf-8")))
+            results.append(
+                json.loads(
+                    json_path.read_text(encoding="utf-8")
+                )
+            )
             
     return results
