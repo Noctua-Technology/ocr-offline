@@ -26,12 +26,6 @@ If you already cloned without submodules:
 git submodule update --init --recursive
 ```
 
-To pull latest submodule changes later:
-
-```bash
-git submodule update --remote --recursive
-```
-
 ## Setup
 
 ```bash
