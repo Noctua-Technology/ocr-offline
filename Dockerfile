@@ -1,51 +1,35 @@
-FROM ghcr.io/astral-sh/uv:python3.10-bookworm-slim AS builder
 
-ENV UV_COMPILE_BYTECODE=1 
-ENV UV_LINK_MODE=copy 
-ENV UV_PYTHON_DOWNLOADS=0 
-ENV DISABLE_MODEL_SOURCE_CHECK=True
+FROM python:3.12-slim
 
-WORKDIR /app
+ARG HF_TOKEN
 
-RUN apt-get update && apt-get install -y \
-    libgomp1 \
-    libgl1-mesa-glx \
-    libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY . .
-
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-install-project --no-dev
-
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-dev
-
-FROM python:3.10-slim-bookworm
-
-RUN groupadd --system --gid 999 app \
-    && useradd --system --gid 999 --uid 999 --create-home app
-
-RUN apt-get update && apt-get install -y \
-    libgl1 \
-    libglib2.0-0 \
-    libgomp1 \
-    libopenblas-dev \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    ffmpeg \
     libsm6 \
     libxext6 \
-    libxrender1 \
+    ccache \
     && rm -rf /var/lib/apt/lists/*
+
+RUN python -m pip install --no-cache-dir uv huggingface_hub
 
 WORKDIR /app
 
-COPY --from=builder --chown=app:app /app .
+# COPY ./models ./models
+COPY ./scripts ./scripts
+COPY ./src ./src
+COPY ./vllm ./vllm
+COPY pyproject.toml uv.lock ./
 
-ENV PATH="/app/.venv/bin:$PATH"
-ENV PYTHONPATH="/app/src"
-ENV FLAGS_enable_pir_api=0
-ENV FLAGS_use_mkldnn=0
-ENV DISABLE_MODEL_SOURCE_CHECK=True
+RUN python -m uv venv
 
-USER app
 
-CMD ["fastapi", "run", "src/app.py", "--port", "3333"]
+RUN uv sync
+RUN ./scripts/download_models.sh $HF_TOKEN
+
+RUN cd vllm \
+    uv pip install -r requirements/cpu.txt --index-strategy unsafe-best-match \
+    uv pip install -e .
+
+ENTRYPOINT [ "./scripts/run.sh" ]

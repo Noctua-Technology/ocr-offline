@@ -1,8 +1,13 @@
-# Ignore editor settings folders
-.vscode/
-.venv
-src/local_models/
-src/src/local_models/
-
-# Ignore pychache directories
-src/__pycache__/
+models
+.DS_Store
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+*.db
+*.egg-info
+dist
+build
+build.sh

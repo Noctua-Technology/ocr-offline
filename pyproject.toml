@@ -1,19 +1,18 @@
 [project]
-name = "paddle-docker-offline"
+name = "paddle-vllm"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = "~=3.10"
+requires-python = ">=3.12"
 dependencies = [
-    "paddleocr>=3.3.2",
+    "fastapi[standard]>=0.116.0",
+    "uvicorn>=0.35.0",
+    "python-multipart>=0.0.20",
+    "paddleocr[doc-parser]>=3.4.0",
     "paddlepaddle>=3.2.2",
-    "paddlex>=3.3.11",
-    "pybind11>=3.0.1",
-    "fastapi[standard]",
-    "uvicorn>=0.38.0",
 ]
+
 [tool.uv]
 required-environments = [
-		"sys_platform == 'darwin' and platform_machine == 'arm64'",
-		"sys_platform == 'linux' and platform_machine == 'aarch64'"
+    "sys_platform == 'linux' and platform_machine == 'aarch64'",
 ]

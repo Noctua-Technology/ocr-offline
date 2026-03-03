@@ -1,63 +1,78 @@
-# Paddle OCR Microservice
+# paddle-vllm
 
-A microservice for optical character recognition (OCR) powered by PaddleOCR.
+Small FastAPI wrapper around `PaddleOCRVL` with two runtime modes:
 
-## Features
+- Local OCR backend (no vLLM server)
+- vLLM-backed OCR (`--vllm`)
 
-- Fast and accurate text detection and recognition
-- RESTful API interface
-- Docker containerized deployment
-- Support for multiple languages
+## Prerequisites
 
-## Getting Started
+- Python 3.12+
+- `uv`
+- `git`
+- `huggingface-cli` (`hf`) for model downloads
 
-### Prerequisites
+## Clone (with submodules)
 
-- Docker
-
-### Usage
-
-Build Docker Image:
+This repo uses `vllm/` as a git submodule. Include it when cloning.
 
 ```bash
-docker build --platform linux/amd64 -t ocr-amd . --load
+git clone --recurse-submodules git@github.com:Noctua-Technology/paddle-ocr-offline.git
 ```
 
-### Running Locally
+If you already cloned without submodules:
 
 ```bash
-uv run uvicorn src.app:app --reload
+git submodule update --init --recursive
 ```
 
-### Sample API Output
+To pull latest submodule changes later:
 
-```shell
-{
-  "filename": "french.jpg",
-  "language": "fr",
-  "extracted_text": "Monsieur Durand, Je vous écris afin de discuter de l'opportunité de collaborer sur un projet de marketing digital. Ayant suivi vos réalisations dans ce domaine, je suis convaincu que ma proposition pourrait répondre aux besoins de votre entreprise...",
-  "text_boxes": [
-    {
-      "text": "Monsieur Durand,",
-      "box": [
-        [
-          46,
-          109
-        ],
-        [
-          179,
-          109
-        ],
-        [
-          179,
-          128
-        ],
-        [
-          46,
-          128
-        ]
-      ]
-    }
-  ]
-}
+```bash
+git submodule update --remote --recursive
+```
+
+## Setup
+
+```bash
+uv sync
+```
+
+Download OCR models:
+
+```bash
+./scripts/download_models.sh
+```
+
+## Run
+
+Start API in local backend mode:
+
+```bash
+./scripts/run.sh
+```
+
+Start API with vLLM worker + API:
+
+```bash
+./scripts/run.sh --vllm
+```
+
+Ports:
+
+- API: `http://localhost:3333`
+- vLLM (only with `--vllm`): `http://localhost:8000`
+
+## API
+
+Health check:
+
+```bash
+curl http://localhost:8001/health
+```
+
+Predict from file upload:
+
+```bash
+curl -X POST "http://localhost:8001/predict" -F "file=@/absolute/path/to/document.pdf"
 ```
