@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 app = FastAPI(title="OCR API", version="0.1.0")
 
 use_vllm = os.getenv("USE_VLLM", "0") == "1"
+vllm_server_url = os.getenv("VLLM_SERVER_URL", "http://localhost:8000/v1")
 
 paddleocr_kwargs = {
     "vl_rec_model_name": "PaddleOCR-VL-1.5-0.9B",
@@ -52,7 +53,7 @@ if use_vllm:
     paddleocr_kwargs.update(
         {
             "vl_rec_backend": "vllm-server",
-            "vl_rec_server_url": "http://localhost:8000/v1",
+            "vl_rec_server_url": vllm_server_url,
         }
     )
 else:
@@ -65,7 +66,7 @@ else:
 pipeline = PaddleOCRVL(**paddleocr_kwargs)
 
 if use_vllm:
-    logger.info("PaddleOCR initialized with vLLM backend at http://localhost:8000/v1")
+    logger.info("PaddleOCR initialized with vLLM backend at %s", vllm_server_url)
 else:
     logger.info("PaddleOCR initialized with local backend model_dir=./models/PaddleOCR-VL-1.5")
 

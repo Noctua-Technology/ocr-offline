@@ -58,6 +58,14 @@ Start API with vLLM worker + API:
 ./scripts/run.sh --vllm
 ```
 
+Use an existing remote/local vLLM server URL instead of starting one:
+
+```bash
+./scripts/run.sh --vllm http://localhost:8000/v1
+# or
+./scripts/run.sh --vllm=https://my-vllm-host.example.com/v1
+```
+
 Ports:
 
 - API: `http://localhost:3333`
