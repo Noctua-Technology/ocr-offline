@@ -1,5 +1,5 @@
 [project]
-name = "paddle-vllm"
+name = "ocr-offline"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"

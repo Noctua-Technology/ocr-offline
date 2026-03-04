@@ -897,6 +897,30 @@ wheels = [
 ]
 
 [[package]]
+name = "ocr-offline"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "fastapi", extra = ["standard"] },
+    { name = "numpy" },
+    { name = "paddleocr", extra = ["doc-parser"] },
+    { name = "paddlepaddle", version = "3.2.2", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine == 'aarch64' and sys_platform == 'linux'" },
+    { name = "paddlepaddle", version = "3.3.0", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'aarch64' or sys_platform != 'linux'" },
+    { name = "python-multipart" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fastapi", extras = ["standard"], specifier = ">=0.116.0" },
+    { name = "numpy", specifier = "<2.0.0" },
+    { name = "paddleocr", extras = ["doc-parser"], specifier = ">=3.4.0" },
+    { name = "paddlepaddle", specifier = ">=3.2.2" },
+    { name = "python-multipart", specifier = ">=0.0.20" },
+    { name = "uvicorn", specifier = ">=0.35.0" },
+]
+
+[[package]]
 name = "openai"
 version = "2.24.0"
 source = { registry = "https://pypi.org/simple" }
@@ -963,30 +987,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/65/ee/299d360cdc32edc7d2cf530f3accf79c4fca01e96ffc950d8a52213bd8e4/packaging-26.0.tar.gz", hash = "sha256:00243ae351a257117b6a241061796684b084ed1c516a08c48a3f7e147a9d80b4", size = 143416, upload-time = "2026-01-21T20:50:39.064Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/b9/c538f279a4e237a006a2c98387d081e9eb060d203d8ed34467cc0f0b9b53/packaging-26.0-py3-none-any.whl", hash = "sha256:b36f1fef9334a5588b4166f8bcd26a14e521f2b55e6b9de3aaa80d3ff7a37529", size = 74366, upload-time = "2026-01-21T20:50:37.788Z" },
-]
-
-[[package]]
-name = "paddle-vllm"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "fastapi", extra = ["standard"] },
-    { name = "numpy" },
-    { name = "paddleocr", extra = ["doc-parser"] },
-    { name = "paddlepaddle", version = "3.2.2", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine == 'aarch64' and sys_platform == 'linux'" },
-    { name = "paddlepaddle", version = "3.3.0", source = { registry = "https://pypi.org/simple" }, marker = "platform_machine != 'aarch64' or sys_platform != 'linux'" },
-    { name = "python-multipart" },
-    { name = "uvicorn" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "fastapi", extras = ["standard"], specifier = ">=0.116.0" },
-    { name = "numpy", specifier = "<2.0.0" },
-    { name = "paddleocr", extras = ["doc-parser"], specifier = ">=3.4.0" },
-    { name = "paddlepaddle", specifier = ">=3.2.2" },
-    { name = "python-multipart", specifier = ">=0.0.20" },
-    { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 
 [[package]]
