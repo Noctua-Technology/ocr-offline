@@ -10,25 +10,31 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsm6 \
     libxext6 \
     ccache \
+    git \
     && rm -rf /var/lib/apt/lists/*
-
-RUN python -m pip install --no-cache-dir uv huggingface_hub
 
 WORKDIR /app
 
-# COPY ./models ./models
+RUN python -m pip install --no-cache-dir uv huggingface_hub
+
 COPY ./scripts ./scripts
-COPY ./src ./src
-COPY ./vllm ./vllm
-COPY pyproject.toml uv.lock ./
-
-RUN python -m uv venv
-
-RUN uv sync
 RUN ./scripts/download_models.sh $HF_TOKEN
 
-RUN cd vllm \
-    uv pip install -r requirements/cpu.txt --index-strategy unsafe-best-match \
-    uv pip install -e .
+# COPY ./models ./models
+COPY ./src ./src
+COPY pyproject.toml uv.lock ./
+
+RUN uv sync
+
+RUN git clone https://github.com/vllm-project/vllm.git
+
+WORKDIR /app/vllm
+
+RUN git checkout v0.15.1
+
+RUN uv pip install -r requirements/cpu.txt --index-strategy unsafe-best-match
+RUN uv pip install -e .
+
+WORKDIR /app
 
 ENTRYPOINT [ "./scripts/run.sh" ]
