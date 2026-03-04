@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI(title="OCR API", version="0.1.0")
 
-Path("tmp").mkdir(parents=True, exist_ok=True)
+Path(".tmp").mkdir(parents=True, exist_ok=True)
 
 use_vllm = os.getenv("USE_VLLM", "0") == "1"
 vllm_server_url = os.getenv("VLLM_SERVER_URL", "http://localhost:8000/v1")
