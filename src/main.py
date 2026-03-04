@@ -82,7 +82,7 @@ async def predict(file: UploadFile = File(...)):
     logger.info("Received /predict request (filename=%s)", file.filename)
     results = []
 
-    with TemporaryDirectory(dir="tmp", delete=True) as tmp_dir:
+    with TemporaryDirectory(dir=".tmp", delete=True) as tmp_dir:
         tmp_path = Path(tmp_dir)
         input_path = tmp_path / file.filename
         input_path.write_bytes(await file.read())
