@@ -24,7 +24,6 @@ COPY pyproject.toml uv.lock ./
 
 RUN python -m uv venv
 
-
 RUN uv sync
 RUN ./scripts/download_models.sh $HF_TOKEN
 
