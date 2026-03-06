@@ -26,11 +26,12 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv sync
 
-# RUN git clone https://github.com/vllm-project/vllm.git
-# WORKDIR /app/vllm
-# RUN git checkout v0.15.1
-# RUN uv pip install -r requirements/cpu.txt --index-strategy unsafe-best-match
-# RUN uv pip install -e .
-# WORKDIR /app
+# install vllm
+RUN git clone https://github.com/vllm-project/vllm.git
+WORKDIR /app/vllm
+RUN git checkout v0.15.1
+RUN uv pip install -r requirements/cpu.txt --index-strategy unsafe-best-match
+RUN uv pip install -e .
+WORKDIR /app
 
 ENTRYPOINT [ "./scripts/run.sh" ]
