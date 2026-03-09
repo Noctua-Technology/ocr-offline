@@ -1,5 +1,5 @@
 
-FROM python:3.12-slim
+FROM vllm/vllm-openai
 
 ARG HF_TOKEN
 
@@ -15,8 +15,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
-RUN python -m pip install --no-cache-dir uv huggingface_hub
-
 COPY ./scripts ./scripts
 RUN ./scripts/download_models.sh $HF_TOKEN
 
@@ -25,13 +23,5 @@ COPY ./src ./src
 COPY pyproject.toml uv.lock ./
 
 RUN uv sync
-
-# install vllm
-RUN git clone https://github.com/vllm-project/vllm.git
-WORKDIR /app/vllm
-RUN git checkout v0.15.1
-RUN uv pip install -r requirements/cpu.txt --index-strategy unsafe-best-match
-RUN uv pip install -e .
-WORKDIR /app
 
 ENTRYPOINT [ "./scripts/run.sh" ]
