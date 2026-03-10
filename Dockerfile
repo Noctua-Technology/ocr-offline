@@ -24,4 +24,6 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv sync
 
+ENV FLAGS_allocator_strategy=naive_best_fit
+
 ENTRYPOINT [ "./scripts/run.sh" ]
