@@ -39,7 +39,7 @@ if [[ "$use_vllm" -eq 1 ]]; then
     if [[ "$start_local_vllm" -eq 1 ]]; then
         log "Starting vLLM server on http://localhost:8000 for model models/PaddleOCR-VL-1.5"
 
-        .venv/bin/vllm serve models/PaddleOCR-VL-1.5 \
+        vllm serve models/PaddleOCR-VL-1.5 \
             --served-model-name PaddleOCR-VL-1.5-0.9B \
             --trust-remote-code \
             --max-num-batched-tokens 16384 \
