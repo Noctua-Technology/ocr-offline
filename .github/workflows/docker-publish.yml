@@ -20,7 +20,25 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  sanity-check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sanity check Python sources
+        run: python -m compileall -q src
+
   build:
+    needs: sanity-check
     runs-on: ubuntu-latest
     permissions:
       contents: read
