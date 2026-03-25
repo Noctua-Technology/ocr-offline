@@ -12,20 +12,6 @@ Small FastAPI wrapper around `PaddleOCRVL` with two runtime modes:
 - `git`
 - `huggingface-cli` (`hf`) for model downloads
 
-## Clone (with submodules)
-
-This repo uses `vllm/` as a git submodule. Include it when cloning.
-
-```bash
-git clone --recurse-submodules git@github.com:Noctua-Technology/paddle-ocr-offline.git
-```
-
-If you already cloned without submodules:
-
-```bash
-git submodule update --init --recursive
-```
-
 ## Setup
 
 ```bash
