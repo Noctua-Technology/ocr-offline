@@ -44,9 +44,9 @@ paddleocr_kwargs = {
     "use_layout_detection": None,
     "use_chart_recognition": None,
     "use_seal_recognition": None,
-    "use_ocr_for_image_block": None,
+    "use_ocr_for_image_block": True,
     "format_block_content": None,
-    "merge_layout_blocks": None,
+    "merge_layout_blocks": True,
     "markdown_ignore_labels": None,
     "use_queues": None
 }
