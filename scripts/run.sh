@@ -44,7 +44,7 @@ if [[ "$use_vllm" -eq 1 ]]; then
             --trust-remote-code \
             --max-model-len 8192 \
             --enforce-eager \
-            --gpu-memory-utilization 0.75
+            --gpu-memory-utilization 0.75 &
 
         log "vLLM server started in background (pid=$!)"
     fi
