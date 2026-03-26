@@ -42,9 +42,9 @@ if [[ "$use_vllm" -eq 1 ]]; then
         vllm serve models/PaddleOCR-VL-1.5 \
             --served-model-name PaddleOCR-VL-1.5-0.9B \
             --trust-remote-code \
-            --max-num-batched-tokens 16384 \
-            --no-enable-prefix-caching \
-            --mm-processor-cache-gb 0 &
+            --max-model-len 8192 \
+            --enforce-eager \
+            --gpu-memory-utilization 0.75
 
         log "vLLM server started in background (pid=$!)"
     fi
